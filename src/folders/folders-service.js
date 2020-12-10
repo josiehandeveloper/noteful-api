@@ -31,7 +31,12 @@ const FoldersService = {
         return knex('notes')
         .where({id})
         .delete()
-    }
+    },
+    updateFolder(knex, id, newFolderFields) {
+        return knex('folders')
+          .where({ id })
+          .update(newFolderFields)
+    },
 }
 
 module.exports = FoldersService

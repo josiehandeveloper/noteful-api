@@ -4,9 +4,11 @@ const morgan = require('morgan')
 const cors = require('cors')
 const helmet = require('helmet')
 const { NODE_ENV } = require('./config')
-const NotesService = require('./notes-service')
+const notesRouter = require('./notes/notes-router')
+const foldersRouter = require('./folders/folders-router')
 
 const app = express()
+const jsonParser = express.json()
 
 const morganOption = (NODE_ENV === 'production')
   ? 'tiny'
@@ -16,14 +18,11 @@ app.use(morgan(morganOption))
 app.use(helmet())
 app.use(cors())
 
-app.get('/notes', (req, res, next) => {
-    const knexInstance = req.app.get('db')
-    NotesService.getAllNotes(knexInstance)
-        .then(notes => {
-            res.json(notes)
-        })
-        .catch(next)
-})
+
+app.use('/api/notes', notesRouter)
+
+app.use('/api/folders', foldersRouter)
+
 
 app.get('/', (req, res) => {
     res.send('Hello, world!')

@@ -1,4 +1,4 @@
-const NotesService = require('../src/notes-service')
+const NotesService = require('../src/notes/notes-service')
 const knex = require('knex')
 const { expect } = require('chai')
 
