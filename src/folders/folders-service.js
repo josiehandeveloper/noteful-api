@@ -21,14 +21,14 @@ const FoldersService = {
     insertFolder(knex, newFolder) {
         return knex
             .insert(newFolder)
-            .into('notes')
+            .into('folders')
             .returning('*')
             .then(rows => {
                 return rows[0]
             })
     },
     deleteFolder(knex, id) {
-        return knex('notes')
+        return knex('folders')
         .where({id})
         .delete()
     },
