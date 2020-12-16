@@ -10,13 +10,11 @@ const foldersRouter = require('./folders/folders-router')
 const app = express()
 const jsonParser = express.json()
 
-const morganOption = (NODE_ENV === 'production')
-  ? 'tiny'
-  : 'common';
+const morganSetting = NODE_ENV === "production" ? "tiny" : "dev";
 
-app.use(morgan(morganOption))
-app.use(helmet())
-app.use(cors())
+app.use(morgan(morganSetting));
+app.use(helmet());
+app.use(cors());
 
 
 app.use('/api/notes', notesRouter)
