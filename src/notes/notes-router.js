@@ -47,7 +47,7 @@ notesRouter
             error: { message: `Note doesn't exist` },
           });
         }
-        res.json(note);
+        next();
       })
       .catch(next);
   })
