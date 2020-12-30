@@ -47,9 +47,13 @@ notesRouter
             error: { message: `Note doesn't exist` },
           });
         }
+        req.note = note;
         next();
       })
       .catch(next);
+  })
+  .get((req, res) => {
+    res.json(req.note);
   })
   .delete((req, res, next) => {
     NotesService.deleteNote(req.app.get("db"), req.params.note_id)
@@ -59,8 +63,8 @@ notesRouter
       .catch(next);
   })
   .patch(jsonParser, (req, res, next) => {
-    const { name, date_modified, folder_id, content } = req.body;
-    const noteToUpdate = { name, date_modified, folder_id, content };
+    const { name, date_modified, folder_id, content, note_id } = req.body;
+    const noteToUpdate = { name, date_modified, folder_id, content, note_id };
 
     const numberOfValues = Object.values(noteToUpdate).filter(Boolean).length;
     if (numberOfValues === 0) {
